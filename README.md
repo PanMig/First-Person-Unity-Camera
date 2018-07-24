@@ -20,5 +20,6 @@ It is a camera object (tagged "main camera") that uses two scripts to achieve th
 ## Demo
 You can try open the demo scene directly and check the first person camera through a level that will test all of the camera's features. Also, to use the camera in your scene , just use the prefab from the respective folder.
 
-![fpcamerasmall](https://user-images.githubusercontent.com/15057375/43147917-dc2f0eb4-8f6c-11e8-9586-6b76e8f99c9c.gif)
+![fpcamera](https://user-images.githubusercontent.com/15057375/43147725-5aaebe48-8f6c-11e8-8213-bf61708ec883.gif)
+
 
