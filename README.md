@@ -4,7 +4,7 @@
 This game asset is a first person camera controller that has been created using a rigidBody component to welcome physics interactions more easily compared to the character controller most first person cameras make use of. A prefab of the camera controller is available and you can very easily implement the camera to your own scene. Last but not least, the scripts used, are very clean and robust and can be very easily modified to your own needs.
 
 ## Technical Analysis
-The first person camera prefab makes use of two components. The first person body object (parent) and a child camera object used as the main game camera. Let's dive into these Unity gameobjects.
+The first person camera prefab makes use of two gameObjects. The first person body object (parent) and a child camera object used as the main game camera. Let's dive into these Unity gameobjects.
 
 #### FPController
 It is an empty gameobject with a capsule collider for enable collisions and a rigidBody component. Moreover the **FPMovementController.cs** script is attached that controls all the player's movements, from jumping to running, walking. Also an audiosource is attached that is being used for the footsteps and landing - jumping sounds.
