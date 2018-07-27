@@ -13,6 +13,7 @@ public class FPMovementController : MonoBehaviour
     [SerializeField] private float jumpSpeed;
     [Range(0.0f, 0.5f)]
     [SerializeField] private float fallRate;
+    [SerializeField] private bool  slopLimitEnabled;
     [SerializeField] private float slopeLimit;
     [Header("Sounds")]
     [SerializeField] private AudioClip footstepClip;
@@ -81,7 +82,7 @@ public class FPMovementController : MonoBehaviour
         moveDirection = (horizontalMovement * transform.right + verticalMovement * transform.forward).normalized;
 
         //jumping
-        if (Input.GetKeyDown(KeyCode.Space) && IsGrounded() && jumpingEnabled)
+        if (Input.GetKeyDown(KeyCode.Space) && IsGrounded() && jumpingEnabled && canJump)
         {
             isJumping = true;
             Jump();
@@ -193,17 +194,19 @@ public class FPMovementController : MonoBehaviour
                 return false;
             }
         }
-
-        float castDist = 1.0f;
-        RaycastHit hit;
-        if (Physics.Raycast(transform.position + _capsule.center, Vector3.down, out hit, castDist)
-            && IsGrounded())
+        if (slopLimitEnabled)
         {
-            float currentsSlope = Vector3.Angle(hit.normal, transform.forward) - 90.0f;
-            if (currentsSlope > slopeLimit)
+            float castDist = 1.0f;
+            RaycastHit hit;
+            if (Physics.Raycast(transform.position + _capsule.center, Vector3.down, out hit, castDist)
+                && IsGrounded())
             {
-                canJump = false;
-                return false;
+                float currentsSlope = Vector3.Angle(hit.normal, transform.forward) - 90.0f;
+                if (currentsSlope > slopeLimit)
+                {
+                    canJump = false;
+                    return false;
+                }
             }
         }
         canJump = true;

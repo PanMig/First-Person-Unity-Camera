@@ -21,7 +21,6 @@ public class CameraController : MonoBehaviour
     void Start()
     {
         cam = this.GetComponent<Camera>();
-        Cursor.lockState = CursorLockMode.Locked;
         rotAroundX = transform.eulerAngles.x;
         rotAroundY = transform.eulerAngles.y;
     }
@@ -35,13 +34,6 @@ public class CameraController : MonoBehaviour
         rotAroundX = Mathf.Clamp(rotAroundX, XMinRotation, XMaxRotation);
 
         CameraRotation();
-
-        //Unlock Cursor
-        if (Input.GetKey(KeyCode.Escape))
-        {
-            Cursor.lockState = CursorLockMode.None;
-            Cursor.visible = true;
-        }
     }
 
     private void CameraRotation()
