@@ -7,14 +7,14 @@ This game asset is a first person camera controller that has been created using 
 The first person camera prefab makes use of two gameObjects. The first person body object (parent) and a child camera object used as the main game camera. Let's dive into these Unity gameobjects.
 
 #### FPController
-It is an empty gameobject with a capsule collider for enable collisions and a rigidBody component. Moreover the **FPMovementController.cs** script is attached that controls all the player's movements, from jumping to running, walking. Also an audiosource is attached that is being used for the footsteps and landing - jumping sounds.
+It is an empty gameobject with a capsule collider for enable collisions and a rigidBody component. Moreover the _FPMovementController.cs_ script is attached that controls all the player's movements, from jumping to running, walking. Also an audiosource is attached that is being used for the footsteps and landing - jumping sounds.
 In the script attached there are many values that you can modify so to find the style of movement that you seek for your player.
 
 
 #### Main Camera
 It is a camera object (tagged "main camera") that uses two scripts to achieve the desired behaviour of a first person camera.
-1. **CameraController.cs** : Is used for the rotation of the camera in the 3d space. With the camera also the rigidBody of the parent object is rotated.
-2. **CameraHeadBod.cs** : Handles the movement of the camera when the player is walking as well as when landing in the ground. More specifically the camera is moving up and down based on a specific period. The bobbing of the camera can be modified through the inspector. Note that running and walking have different values concerning the bobbing of the camera.
+1. _CameraController.cs_ : Is used for the rotation of the camera in the 3d space. With the camera also the rigidBody of the parent object is rotated.
+2. _CameraHeadBod.cs_ : Handles the movement of the camera when the player is walking as well as when landing in the ground. More specifically the camera is moving up and down based on a specific period. The bobbing of the camera can be modified through the inspector. Note that running and walking have different values concerning the bobbing of the camera.
 
 
 ## Demo
