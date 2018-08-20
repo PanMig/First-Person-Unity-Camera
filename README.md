@@ -7,7 +7,7 @@ This game asset is a first person camera controller that has been created using 
 The first person camera prefab makes use of two gameObjects. The first person body object (parent) and a child camera object used as the main game camera. Let's dive into these Unity gameobjects.
 
 #### FPController
-It is an empty gameobject with a capsule collider for enable collisions and a rigidBody component. Moreover the _FPMovementController.cs_ script is attached that controls all the player's movements, from jumping to running, walking. Also an audiosource is attached that is being used for the footsteps and landing - jumping sounds.
+It is an empty gameobject with a capsule collider and a rigidBody component. Moreover the _FPMovementController.cs_ script is attached that controls all the player's movements, from jumping to running and walking. Also an audiosource is attached that is being used for the footsteps and landing-jumping sounds.
 In the script attached there are many values that you can modify so to find the style of movement that you seek for your player.
 
 
