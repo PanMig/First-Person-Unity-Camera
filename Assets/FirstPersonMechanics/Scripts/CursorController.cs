@@ -10,7 +10,6 @@ public class CursorController : MonoBehaviour {
 
     CameraRayCaster _raycaster;
     RaycastHit? hit;
-    //readonly Tags Tag;
 
     // Use this for initialization
     void Start () {
