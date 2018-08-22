@@ -2,25 +2,31 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(CameraRayCaster))]
+[RequireComponent(typeof(InteractionRayCaster))]
 public class CursorController : MonoBehaviour {
 
     [SerializeField] private Texture2D pickUp;
     [SerializeField] private Texture2D note;
 
-    CameraRayCaster _raycaster;
-    RaycastHit? hit;
+    InteractionRayCaster _raycaster;
 
     // Use this for initialization
     void Start () {
-        _raycaster = GetComponent<CameraRayCaster>();
+        _raycaster = GetComponent<InteractionRayCaster>();
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
         _raycaster.onTargetChange += ChangeCursor;
+        _raycaster.onNoTarget += HideCursor;
     }
-	
-	// Update is called once per frame
-	void Update () {
+
+    private void OnDisable()
+    {
+        _raycaster.onTargetChange -= ChangeCursor;
+        _raycaster.onNoTarget -= HideCursor;
+    }
+
+    // Update is called once per frame
+    void Update () {
         //Unlock Cursor
         if (Input.GetKey(KeyCode.Escape))
         {
@@ -44,6 +50,11 @@ public class CursorController : MonoBehaviour {
             Cursor.visible = false;
             return;
         }
+    }
+
+    void HideCursor()
+    {
+        Cursor.visible = false;
     }
 
     public void ChangeCursorIcon(Texture2D texture)
