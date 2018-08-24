@@ -178,15 +178,17 @@ public class FPMovementController : MonoBehaviour
     // make a capsule cast to check weather there is an obstavle in front of the player ONLY when jumping.
     public bool AllowMovement(Vector3 castDirection)
     {
+        Vector3 point1;
+        Vector3 point2;
         if (!IsGrounded())
         {
             // The distance from the bottom and top of the capsule
             distanceToPoints = _capsule.height / 2 - _capsule.radius;
             /*Top and bottom capsule points respectively, transform.position is used to get points relative to 
                local space of the capsule. */
-            Vector3 point1 = transform.position + _capsule.center + Vector3.up * distanceToPoints;
-            Vector3 point2 = transform.position + _capsule.center + Vector3.down * distanceToPoints;
-            float radius = _capsule.radius * 0.95f;
+            point1 = transform.position + _capsule.center + Vector3.up * distanceToPoints;
+            point2 = transform.position + _capsule.center + Vector3.down * distanceToPoints;
+            float radius = _capsule.radius * .95f;
             float capsuleCastDist = 0.2f;
 
             if (Physics.CapsuleCast(point1, point2, radius, castDirection, capsuleCastDist))
@@ -194,9 +196,9 @@ public class FPMovementController : MonoBehaviour
                 return false;
             }
         }
-        if (slopLimitEnabled)
+        if (slopLimitEnabled && IsGrounded())
         {
-            float castDist = 1.0f;
+            float castDist = _capsule.height;
             RaycastHit hit;
             if (Physics.Raycast(transform.position + _capsule.center, Vector3.down, out hit, castDist)
                 && IsGrounded())

@@ -29,7 +29,7 @@ public class InteractionRayCaster : CameraRaycaster {
         }
         else
         {
-            onNoTarget();
+            if(onNoTarget != null) onNoTarget();
         }
     }
 

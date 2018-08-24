@@ -1,28 +1,15 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(InteractionRayCaster))]
 public class CursorController : MonoBehaviour {
 
-    [SerializeField] private Texture2D pickUp;
-    [SerializeField] private Texture2D note;
-
-    InteractionRayCaster _raycaster;
-
     // Use this for initialization
     void Start () {
-        _raycaster = GetComponent<InteractionRayCaster>();
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
-        _raycaster.onTargetChange += ChangeCursor;
-        _raycaster.onNoTarget += HideCursor;
-    }
-
-    private void OnDisable()
-    {
-        _raycaster.onTargetChange -= ChangeCursor;
-        _raycaster.onNoTarget -= HideCursor;
     }
 
     // Update is called once per frame
@@ -33,23 +20,16 @@ public class CursorController : MonoBehaviour {
             Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;
         }
+        else if (Input.GetButtonDown("Fire1") && Cursor.visible == true){
+            print("cursor");
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
+        }
     }
 
     void ChangeCursor()
     {
-        if (_raycaster.Hit.collider.tag == "pickUp")
-        {
-            ChangeCursorIcon(pickUp);
-        }
-        else if (_raycaster.Hit.collider.tag == "note")
-        {
-            ChangeCursorIcon(note);
-        }
-        else
-        {
-            Cursor.visible = false;
-            return;
-        }
+        throw new NotImplementedException();
     }
 
     void HideCursor()

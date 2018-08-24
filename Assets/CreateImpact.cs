@@ -11,10 +11,10 @@ public class CreateImpact : MonoBehaviour {
     // Use this for initialization
     void Start () {
         _raycaster = Camera.main.GetComponent<ShootingRayCaster>();
-        _raycaster.onShotHit += CreateImpact;
+        _raycaster.onShotHit += SpawnImpact;
     }
 
-    void CreateImpact()
+    void SpawnImpact()
     {
         Instantiate(impactFX,_raycaster.Hit.point, Quaternion.LookRotation(_raycaster.Hit.normal));
     }
