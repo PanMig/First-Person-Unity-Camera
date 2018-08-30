@@ -41,7 +41,7 @@ public class CameraHeadBob : MonoBehaviour
         {
             timer = 0.0f;
         }
-        else
+        else if(!_character.IsLanding)
         {
             waveslice = Mathf.Sin(timer);
             if (!_character.IsRunning)
@@ -84,6 +84,7 @@ public class CameraHeadBob : MonoBehaviour
 
     public IEnumerator LandingBob()
     {
+        _character.IsLanding = true;
         // make the camera move down slightly
         float t = 0f;
         while (t < jumpBobDuration)
@@ -102,5 +103,7 @@ public class CameraHeadBob : MonoBehaviour
             yield return new WaitForFixedUpdate();
         }
         offset = 0f;
+        _character.IsLanding = false;
+
     }
 }

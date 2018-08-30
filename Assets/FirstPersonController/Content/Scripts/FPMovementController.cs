@@ -25,6 +25,7 @@ public class FPMovementController : MonoBehaviour
     [SerializeField] private float footstepspitch;
     private bool isRunning = false;
     private bool isJumping = false;
+    private bool isLanding = false;
     private bool canJump = true;
     private bool prevGrounded = false;
     private bool grounded;
@@ -52,6 +53,19 @@ public class FPMovementController : MonoBehaviour
             isRunning = value;
         }
     }
+
+    public bool IsLanding
+    {
+        get
+        {
+            return isLanding;
+        }
+
+        set
+        {
+            isLanding = value;
+        }
+    }
     #endregion
 
 
@@ -67,6 +81,14 @@ public class FPMovementController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //jumping
+        if (Input.GetKeyDown(KeyCode.Space) && IsGrounded() && jumpingEnabled && canJump)
+        {
+            isJumping = true;
+            Jump();
+            PlayJumpingSound();
+        }
+
         horizontalMovement = 0; verticalMovement = 0;
 
         //Calculate FPcontroller movement direction through WASD and arrows Input
@@ -81,17 +103,8 @@ public class FPMovementController : MonoBehaviour
         //normalize vector so movement in two axis simultanesly is balanced.
         moveDirection = (horizontalMovement * transform.right + verticalMovement * transform.forward).normalized;
 
-        //jumping
-        if (Input.GetKeyDown(KeyCode.Space) && IsGrounded() && jumpingEnabled && canJump)
-        {
-            isJumping = true;
-            Jump();
-            PlayJumpingSound();
-        }
-
         //Toggle run & jump
         IsRunning = Input.GetKey(KeyCode.LeftShift);
-        isJumping = Input.GetButtonDown("Jump");
 
         if (!prevGrounded && IsGrounded())
         {
@@ -109,7 +122,7 @@ public class FPMovementController : MonoBehaviour
          To solve this we add to the rb velocity the Y axis velocity */
 
         YAxisGravity = new Vector3(0, rb.velocity.y - fallRate, 0);
-        Move();
+        if (!isJumping) { Move(); }
         rb.velocity += YAxisGravity;
     }
 
@@ -147,12 +160,13 @@ public class FPMovementController : MonoBehaviour
             if (IsRunning)
             {
                 audioSource.volume = footstepsVol;
-                audioSource.pitch = Random.Range(footstepspitch, footstepspitch + 0.15f);
+                //audioSource.pitch = Random.Range(footstepspitch, footstepspitch + 0.15f);
+                audioSource.pitch = footstepspitch;
             }
             else
             {
                 audioSource.volume = footstepsVol / 2;
-                audioSource.pitch = footstepspitch - 0.15f;
+                audioSource.pitch = .8f;
             }
 
             audioSource.PlayOneShot(footstepClip);
@@ -189,7 +203,7 @@ public class FPMovementController : MonoBehaviour
             point1 = transform.position + _capsule.center + Vector3.up * distanceToPoints;
             point2 = transform.position + _capsule.center + Vector3.down * distanceToPoints;
             float radius = _capsule.radius * .95f;
-            float capsuleCastDist = 0.2f;
+            float capsuleCastDist = 0.1f;
 
             if (Physics.CapsuleCast(point1, point2, radius, castDirection, capsuleCastDist))
             {

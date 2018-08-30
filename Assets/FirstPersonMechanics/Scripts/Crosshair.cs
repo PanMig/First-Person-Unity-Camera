@@ -3,12 +3,25 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+[System.Serializable]
+public struct CrosshairSize
+{
+    public Vector2 small;
+    public Vector2 medium;
+    public Vector2 big;
+}
+
+
 public class Crosshair : MonoBehaviour {
 
+    //Sprites
+    [Header("Icons")]
     [SerializeField] private Sprite pickUp;
     [SerializeField] private Sprite note;
     [SerializeField] private Sprite crosshair;
-
+    //crossHair image
+    private Image img;
+    public CrosshairSize crosshairSize = new CrosshairSize();
     [SerializeField] private InteractionRayCaster _raycaster;
 
     // Use this for initialization
@@ -17,6 +30,8 @@ public class Crosshair : MonoBehaviour {
 
         _raycaster.onTargetChange += ChangeCrosshair;
         _raycaster.onNoTarget += ChangeCrosshair;
+
+        img = gameObject.GetComponent<Image>();        
     }
 
     private void OnDisable()
@@ -32,26 +47,35 @@ public class Crosshair : MonoBehaviour {
             switch (_raycaster.Hit.collider.tag)
             {
                 case "pickUp":
-                    ChangeIcon(pickUp);
+                    SetIcon(pickUp);
+                    SetSize(crosshairSize.medium);
                     break;
                 case "note":
-                    ChangeIcon(note);
+                    SetIcon(note);
+                    SetSize(crosshairSize.medium);
                     break;
                 default:
-                    ChangeIcon(crosshair);
+                    SetIcon(crosshair);
+                    SetSize(crosshairSize.small);
                     break;
             }
         }
         else
         {
-            ChangeIcon(crosshair);
+            SetIcon(crosshair);
+            SetSize(crosshairSize.small);
             return;
         }
     }
 
-    void ChangeIcon(Sprite icon)
+    void SetIcon(Sprite icon)
     {
-        Image img = gameObject.GetComponent<Image>();
         img.sprite = icon;
     }
+
+    void SetSize(Vector2 size)
+    {
+        img.GetComponent<RectTransform>().sizeDelta = size;
+    }
+
 }
