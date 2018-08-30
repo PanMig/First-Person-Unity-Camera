@@ -23,6 +23,6 @@ You can try open the demo scene directly and check the first person camera throu
 
 ![fpcamera](https://user-images.githubusercontent.com/15057375/43147725-5aaebe48-8f6c-11e8-8213-bf61708ec883.gif)
 
-![screenshot 21](https://user-images.githubusercontent.com/15057375/44330352-6eada900-a46f-11e8-9e7f-643811721a7f.png)
+![fps controller](https://user-images.githubusercontent.com/15057375/44857348-4cd6d200-ac78-11e8-96fe-91ad109e14c5.gif)
 
 
